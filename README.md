@@ -1,2 +1,1 @@
-# wereWolf
-狼人杀预约项目
+#WerewolfServer

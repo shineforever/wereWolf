@@ -1,40 +1,39 @@
-#coding:utf-8
-import os
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-from flask_app import db
+from .flaskapp import db
 
 class Participate(db.Model):
     __tablename__ = 'Participate'
-    participateID = db.Column(db.String(100), primary_key=True)
-    userID = db.Column(db.String(100), db.ForeignKey('UserInfo.userID'))
-    activityID = db.Column(db.String(100), db.ForeignKey('Activity.activityID'))
-    createTime = db.Column(db.DateTime)
+    participate_id = db.Column(db.String(100), primary_key=True)
+    user_id = db.Column(db.String(100), db.ForeignKey('UserInfo.user_id'))
+    activity_id = db.Column(db.String(100), db.ForeignKey('Activity.activity_id'))
+    location = db.Column(db.Integer)
+    roletype_id = db.Column(db.String(100))
+    score = db.Column(db.Integer)
+    createtime = db.Column(db.DateTime)
 
-    def __init__(self, participateID=None, userID=None, activityID=None,
-                 createTime=None):
-        self.participateID = participateID
-        self.userID = userID
-        self.activityID = activityID
-        self.createTime = createTime
-
-
-
+    def __init__(self, participate_id=None, user_id=None, activity_id=None,
+                 createtime=None, location=None, roletype_id=None,
+                 score=0):
+        self.participate_id = participate_id
+        self.user_id = user_id
+        self.location = location
+        self.activity_id = activity_id
+        self.roletype_id = roletype_id
+        self.score = score
+        self.createtime = createtime
 
     def __repr__(self):
-        return self.participateID
-
+        return self.participate_id
 
     @staticmethod
     def create(info):
-        participateID = info['participateID']
-        userID = info['userID']
-        activityID = info['activityID']
-        createTime = info['createTime']
+        participate_id = info['participate_id']
+        user_id = info['user_id']
+        activity_id = info['activity_id']
+        createtime = info['createtime']
+        location = info['location']
         participate = Participate(
-            participateID=participateID, userID=userID, activityID=activityID,
-            createTime=createTime
+            participate_id=participate_id, user_id=user_id, activity_id=activity_id,
+            createtime=createtime, location=location
         )
         db.session.add(participate)
         return (True, None)
@@ -42,8 +41,11 @@ class Participate(db.Model):
     @staticmethod
     def generate(result):
         res = {}
-        res['participateID'] = result.participateID
-        res['userID'] = result.userID
-        res['activityID'] = result.activityID
-        res['createTime'] = str(result.createTime)
+        res['participate_id'] = result.participate_id
+        res['user_id'] = result.user_id
+        res['activity_id'] = result.activity_id
+        res['location'] = result.location_id
+        res['createtime'] = str(result.createtime)
+        res['score'] = result.score
+        res['roletype_id'] = result.roletype_id
         return (True, res)

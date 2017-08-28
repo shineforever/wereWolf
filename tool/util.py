@@ -4,37 +4,62 @@ import hmac
 import random
 import re
 import sys
-from Crypto.Cipher import AES
-
 sys.path.append('..')
+# from Crypto.Cipher import AES
+
+
 import hashlib
 import time
 import datetime
 import oss2
 import json
+from functools import wraps
 
-from errorConfig import ErrorInfo
+from tool.error_config import ErrorInfo
 from tool.config import APP_ID
 from tool.config import APP_SECRET
-from model.flask_app import db
-from model.Token import Token
+from tool.config import OSS_ACCESS_KEY_ID
+from tool.config import OSS_ACCESS_KEY_SERCRET
+from model.flaskapp import db
+from model.token import Token
 
 class Util:
     def __init__(self):
         pass
 
-    def _getBucket(self, ossInfo, endpoint='oss-cn-hangzhou.aliyuncs.com'):
-        bucketStr = ossInfo['bucket']
-        OSSAccessKeyId = 'HReEC1sQufBRLcQC'
-        secret = '5rqWY7jXhGeF0HBhYpl10mSkgrrHZt'
-        auth = oss2.Auth(OSSAccessKeyId, secret)
+    @staticmethod
+    def error_print(func):
+        def wrapper(*args, **kwargs):
+            '''
+            关于数据库操作,输出错误日志
+            :param args: 
+            :param kwargs: 
+            :return: 
+            '''
+            try:
+                if kwargs:
+                    return func(*args, kwargs)
+                else:
+                    return func(*args)
+            except Exception as e:
+                print(e)
+                errorInfo = ErrorInfo['WOLFS_01']
+                errorInfo['detail'] = str(e)
+                db.session.rollback()
+                return (False, errorInfo)
+        return wrapper
+
+    def _get_bucket(self, ossInfo, endpoint='oss-cn-beijing.aliyuncs.com'):
+        bucket_str = ossInfo['bucket']
+        auth = oss2.Auth(OSS_ACCESS_KEY_ID, OSS_ACCESS_KEY_SERCRET)
         _endpoint = endpoint
-        return oss2.Bucket(auth, _endpoint, bucketStr)
+        return oss2.Bucket(auth, _endpoint, bucket_str)
 
-
-    def uploadOSSImage(self, imageName, ossInfo, imgFile):
-        bucket = self._getBucket(ossInfo)
-        return bucket.put_object(imageName, imgFile)
+    def upload_oss_image(self, info):
+        bucket = self._get_bucket(info['oss_info'])
+        img_name = info['img_name']
+        img_file = info['img_file']
+        return bucket.put_object(img_name, img_file)
 
     def getSecurityUrl(self, ossInfo):
         obj = ossInfo['objectKey']
@@ -46,15 +71,15 @@ class Util:
         currentTime = time.strftime(ISOTIMEFORMAT, time.localtime())
         return currentTime
 
-    def getMD5String(self, str):
+    def get_md5_string(self, str):
         m = hashlib.md5()
-        m.update(str)
+        m.update(str.encode('utf-8'))
         return m.hexdigest()
 
-    def generateID(self, value):
+    def generate_id(self, value):
         currentTime = self.getCurrentTime()
         now = datetime.datetime.now()
-        resultID = self.getMD5String(''.join([str(currentTime), value, str(now)]))
+        resultID = self.get_md5_string(''.join([str(currentTime), value, str(now)]))
         resultID = ''.join([str(currentTime), resultID]).replace(' ','')
         resultID = ''.join(re.split(':', resultID))
         return resultID
@@ -82,7 +107,6 @@ class Util:
             db.session.commit()
             return (True, result.userID)
         except Exception as e:
-            print e
             errorInfo = ErrorInfo['SPORTS_02']
             errorInfo['detail'] = str(e)
             db.session.rollback()
@@ -111,6 +135,7 @@ class Util:
 
 
 
+
+
 if __name__ == '__main__':
     u = Util()
-    print u.generateID('a')

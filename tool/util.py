@@ -61,9 +61,9 @@ class Util:
         img_file = info['img_file']
         return bucket.put_object(img_name, img_file)
 
-    def getSecurityUrl(self, ossInfo):
-        obj = ossInfo['objectKey']
-        bucket = self._getBucket(ossInfo, endpoint='img-cn-hangzhou.aliyuncs.com')
+    def get_security_url(self, oss_info):
+        obj = oss_info['object_key']
+        bucket = self._get_bucket(oss_info)
         return bucket.sign_url('GET', obj, 3600)
 
     def getCurrentTime(self):

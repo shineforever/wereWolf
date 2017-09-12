@@ -8,10 +8,11 @@ class Participate(db.Model):
     location = db.Column(db.Integer)
     roletype_id = db.Column(db.String(100))
     score = db.Column(db.Integer)
+    state = db.Column(db.Boolean)
     createtime = db.Column(db.DateTime)
 
     def __init__(self, participate_id=None, user_id=None, activity_id=None,
-                 createtime=None, location=None, roletype_id=None,
+                 createtime=None, location=None, roletype_id=None, state=False,
                  score=0):
         self.participate_id = participate_id
         self.user_id = user_id
@@ -19,6 +20,7 @@ class Participate(db.Model):
         self.activity_id = activity_id
         self.roletype_id = roletype_id
         self.score = score
+        self.state = state
         self.createtime = createtime
 
     def __repr__(self):
@@ -30,10 +32,11 @@ class Participate(db.Model):
         user_id = info['user_id']
         activity_id = info['activity_id']
         createtime = info['createtime']
+        roletype_id = info['roletype_id']
         location = info['location']
         participate = Participate(
             participate_id=participate_id, user_id=user_id, activity_id=activity_id,
-            createtime=createtime, location=location
+            createtime=createtime, location=location, roletype_id=roletype_id
         )
         db.session.add(participate)
         return (True, None)
@@ -44,8 +47,9 @@ class Participate(db.Model):
         res['participate_id'] = result.participate_id
         res['user_id'] = result.user_id
         res['activity_id'] = result.activity_id
-        res['location'] = result.location_id
+        res['location'] = result.location
         res['createtime'] = str(result.createtime)
         res['score'] = result.score
         res['roletype_id'] = result.roletype_id
+        res['state'] = result.state
         return (True, res)

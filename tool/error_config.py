@@ -68,5 +68,35 @@ ErrorInfo['WOLFS_11'] = {
     'zhInfo' : '已经报名！'
 }
 
+ErrorInfo['WOLFS_12'] = {
+    'code' : 'WOLFS_12',
+    'info' : 'the activity already has judge!',
+    'zhInfo' : '该活动已经拥有法官，无法重复指定！'
+}
+
+ErrorInfo['WOLFS_13'] = {
+    'code' : 'WOLFS_13',
+    'info' : 'you are not the right judge!',
+    'zhInfo' : '你不是该活动的法官，无法分配角色！'
+}
+
+ErrorInfo['WOLFS_14'] = {
+    'code' : 'WOLFS_14',
+    'info' : 'there is participator not assign role, can not start activity!',
+    'zhInfo' : '房间中还有入座者未分配角色，无法开始比赛！'
+}
+
+ErrorInfo['WOLFS_15'] = {
+    'code' : 'WOLFS_15',
+    'info' : 'the activity is not complete, you can not end it!',
+    'zhInfo' : '活动未完成，无法结束！'
+}
+
+ErrorInfo['WOLFS_16'] = {
+    'code' : 'WOLFS_16',
+    'info' : 'the activity is full!',
+    'zhInfo' : '人数已满，无法参加！'
+}
+
 
 

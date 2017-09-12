@@ -91,6 +91,7 @@ create table Participate
     activity_id nvarchar(100) comment '活动ID',
     roletype_id nvarchar(100) comment '角色类型ID',
     location int comment '座位号',
+    state boolean comment '玩家状态，true表示出局',
     score int default 0 comment '积分',
     createtime datetime comment '加入时间'
 );
@@ -100,6 +101,32 @@ alter table  Participate add constraint participate_FK_userInfo foreign key(user
 alter table  Participate add constraint participate_FK_roleType foreign key(roleType_id) references Roletype(type_id);
 
 
+--operate，法官操作
+create table Operate
+(
+    operate_id nvarchar(100) primary key comment '主键',
+    type_id nvarchar(100) comment '操作类型ID',
+    activity_id nvarchar(100) comment '活动ID',
+    foreign_id nvarchar(100) comment '被操作对象ID',
+    user_id nvarchar(100) comment '操作对象ID',
+    level_number int comment '操作顺序',
+    createtime datetime comment '创建时间'
+);
+
+ALTER TABLE Operate CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+
+
+--ClubScore，俱乐部积分
+create table ClubScore
+(
+    score_id nvarchar(100) primary key comment '主键',
+    club_id nvarchar(100) comment '俱乐部ID',
+    club_number nvarchar(100) comment '俱乐部积分',
+    user_id nvarchar(100) comment '用户ID'
+);
+
+ALTER TABLE ClubScore CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 

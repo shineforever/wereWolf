@@ -10,6 +10,7 @@ from tool.error_config import ErrorInfo
 from stoken.token_manager import TokenManager
 from model.flaskapp import db
 from model.admininfo import AdminInfo
+from model.userinfo import UserInfo
 from model.token import Token
 
 from tool.config import VALIDITY
@@ -75,30 +76,14 @@ class AdminManager(Util):
             return (False, errorInfo)
         tokenManager = TokenManager()
         (status, token_id) = tokenManager.update_token(info)
+        db.session.commit()
         if status is False:
             return (False, token_id)
         return (True, token_id)
 
-    # # 管理员身份验证, 如果身份校验成功,返回管理员ID
-    # def adminAuth(self, jsonInfo):
-    #     info = json.loads(jsonInfo)
-    #     tokenID = info['tokenID']
-    #     (status, userID) = self.isTokenValid(tokenID)
-    #     if status is not True:
-    #         return (False, userID)
-    #     try:
-    #         # 该userID是否是管理员
-    #         query = db.session.query(AdminInfo).filter(AdminInfo.adminID==userID)
-    #         result = query.first()
-    #         if result is None:
-    #             errorInfo = ErrorInfo['WOLFS_06']
-    #             return (False, errorInfo)
-    #         return (True, userID)
-    #     except Exception as e:
-    #         errorInfo = ErrorInfo['WOLFS_01']
-    #         errorInfo['detail'] = str(e)
-    #         db.session.rollback()
-    #         return (False, errorInfo)
+
+
+
 
 
 

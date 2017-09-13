@@ -6,6 +6,11 @@ WHOOSH_BASE = '/home/yz/work/werewolfSearchData/'
 
 APP_ID = 'wx764d3845feee904a' #微信小程序APP, ID
 APP_SECRET = '9eaf302b599dcae0d282854e5af88651' #微信小程序APP, secret
+
+# APP_ID = 'wxddf05171165e98c6' #微信小程序APP, ID
+# APP_SECRET = 'c2bac13f26d2a1adfd60de223b670080' #微信小程序APP, secret
+
+
 GET_OPENID_URL = 'https://api.weixin.qq.com/sns/jscode2session'
 
 WECHAT_USER_TAG = 1 #微信小程序用户tag
@@ -53,3 +58,13 @@ EMPTY_LOCATION = 0
 
 OSS_ACCESS_KEY_ID = 'LTAIHuzyjCL6eXhq'
 OSS_ACCESS_KEY_SERCRET = 'mhMabaZEUJPAQbCW21Fm8HgprCy3gf'
+OSS_ENDPOINT = 'oss-cn-beijing.aliyuncs.com'
+
+#
+# OSS_ACCESS_KEY_ID = 'HReEC1sQufBRLcQC'
+# OSS_ACCESS_KEY_SERCRET = '5rqWY7jXhGeF0HBhYpl10mSkgrrHZt'
+# OSS_ENDPOINT = 'oss-cn-hangzhou.aliyuncs.com'
+
+
+
+

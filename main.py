@@ -1,9 +1,9 @@
 #coding: utf-8
-from gevent.wsgi import WSGIServer
-from index import app
-
-http_server = WSGIServer(('', 5098), app)
-http_server.serve_forever()
+# from gevent.wsgi import WSGIServer
+# from index import app
+#
+# http_server = WSGIServer(('', 5098), app)
+# http_server.serve_forever()
 # import os
 # import gevent.monkey
 # gevent.monkey.patch_all()
@@ -23,24 +23,24 @@ http_server.serve_forever()
 # from index import app
 # http_server = WSGIServer(('', 5058), app)
 # http_server.serve_forever()
-# from tornado.wsgi import WSGIContainer
-# from tornado.httpserver import HTTPServer
-# from tornado.ioloop import IOLoop
-# from index import app
-#
-# from tornado.options import options
-#
-#
-# if __name__ == '__main__':
-#
-#     args = options.parse_command_line()
-#     if len(args) == 0:
-#         port = 5058
-#     else:
-#         port = args[0]
-#
-#
-#     http_server = HTTPServer(WSGIContainer(app), xheaders=True)
-#
-#     http_server.listen(port)
-#     IOLoop.instance().start()
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+from index import app
+
+from tornado.options import options
+
+
+if __name__ == '__main__':
+
+    args = options.parse_command_line()
+    if len(args) == 0:
+        port = 5098
+    else:
+        port = args[0]
+
+
+    http_server = HTTPServer(WSGIContainer(app), xheaders=True)
+
+    http_server.listen(port)
+    IOLoop.instance().start()

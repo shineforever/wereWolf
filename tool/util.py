@@ -7,7 +7,6 @@ import sys
 sys.path.append('..')
 # from Crypto.Cipher import AES
 
-
 import hashlib
 import time
 import datetime
@@ -20,6 +19,7 @@ from tool.config import APP_ID
 from tool.config import APP_SECRET
 from tool.config import OSS_ACCESS_KEY_ID
 from tool.config import OSS_ACCESS_KEY_SERCRET
+from tool.config import OSS_ENDPOINT
 from model.flaskapp import db
 from model.token import Token
 
@@ -49,7 +49,7 @@ class Util:
                 return (False, errorInfo)
         return wrapper
 
-    def _get_bucket(self, ossInfo, endpoint='oss-cn-beijing.aliyuncs.com'):
+    def _get_bucket(self, ossInfo, endpoint=OSS_ENDPOINT):
         bucket_str = ossInfo['bucket']
         auth = oss2.Auth(OSS_ACCESS_KEY_ID, OSS_ACCESS_KEY_SERCRET)
         _endpoint = endpoint
@@ -111,22 +111,6 @@ class Util:
             errorInfo['detail'] = str(e)
             db.session.rollback()
             return (False, errorInfo)
-
-    #微信登录时候，解密用户加密的数据信息
-    def decrypt(self, encryptedData, iv, sessionKey):
-        # base64 decode
-        sessionKey = base64.b64decode(sessionKey)
-        encryptedData = base64.b64decode(encryptedData)
-        iv = base64.b64decode(iv)
-
-        cipher = AES.new(sessionKey, AES.MODE_CBC, iv)
-
-        decrypted = json.loads(self._unpad(cipher.decrypt(encryptedData)))
-
-        if decrypted['watermark']['appid'] != APP_ID:
-            raise Exception('Invalid Buffer')
-
-        return decrypted
 
     def _unpad(self, s):
         return s[:-ord(s[len(s) - 1:])]

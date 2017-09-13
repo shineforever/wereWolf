@@ -230,37 +230,6 @@ def upload_file():
     data['data'] = jsonlist
     return json.dumps(data)
 
-#
-# #后台，　获取活动详情
-# @app.route('/get_activity_detail_background/', methods=['POST', 'GET'])
-# def get_activity_detail_background():
-#     activityManager = ActivityManager()
-#     method = activityManager.getActivityDetailBackground
-#     return generate_call_back(method=method)
-#
-# #获取活动详情
-# @app.route('/get_activity_detail/', methods=['POST', 'GET'])
-# def get_activity_detail():
-#     activityManager = ActivityManager()
-#     method = activityManager.getActivityDetail
-#     return generate_call_back(method=method)
-#
-# #获取普通活动列表
-# @app.route('/get_user_activity_list/', methods=['POST', 'GET'])
-# def get_user_activity_list():
-#     activityManager = ActivityManager()
-#     method = activityManager.getUserActivityList
-#     return generate_call_back(method=method)
-#
-# #获取俱乐部活动列表
-# @app.route('/get_club_activity_list/', methods=['POST', 'GET'])
-# def get_club_activity_list():
-#     activityManager = ActivityManager()
-#     method = activityManager.getClubActivityList
-#     return generate_call_back(method=method)
-#
-
-
 
 #===================俱乐部管理====================================
 #后台， 创建俱乐部
@@ -269,60 +238,7 @@ def create_club_background():
     clubManager = ClubManager()
     method = clubManager.create_club_background
     return generate_call_back(method=method)
-#
-# #后台，创建用户
-# @app.route('/create_user_background/', methods=['POST', 'GET'])
-# def create_user_background():
-#     userInfoManager = UserInfoManager()
-#     method = userInfoManager.createUserBackground
-#     return generate_call_back_with_file(method=method)
-#
-# #后台，获取用户详情
-# @app.route('/get_user_info_detail_background/', methods=['POST', 'GET'])
-# def get_user_info_detail_background():
-#     userInfoManager = UserInfoManager()
-#     method = userInfoManager.getUserInfoDetailBackground
-#     return generate_call_back(method=method)
-#
-#
-# #微信小程序，用户注册，登录
-# @app.route('/login_with_wechat/', methods=['POST', 'GET'])
-# def login_with_wechat():
-#     userInfoManager = UserInfoManager()
-#     method = userInfoManager.loginWithWechat
-#     return generate_call_back(method=method)
-#
-# #获取用户详情
-# @app.route('/get_user_info_detail/', methods=['POST', 'GET'])
-# def get_user_info_detail():
-#     userInfoManager = UserInfoManager()
-#     method = userInfoManager.getUserInfoDetail
-#     return generate_call_back(method=method)
-#
-# #后台, 获取用户列表
-# @app.route('/get_user_list_background/', methods=['POST', 'GET'])
-# def get_user_list_background():
-#     userInfoManager = UserInfoManager()
-#     method = userInfoManager.getUserListBackground
-#     return generate_call_back(method=method)
-#
 
-#
-# #后台，　获取俱乐部详情
-# @app.route('/get_club_detail_background/', methods=['POST', 'GET'])
-# def get_club_detail_background():
-#     clubManager = ClubManager()
-#     method = clubManager.getClubDetailBackground
-#     return generate_call_back(method=method)
-#
-# #获取俱乐部详情
-# @app.route('/get_club_detail/', methods=['POST', 'GET'])
-# def get_club_detail():
-#     clubManager = ClubManager()
-#     method = clubManager.getClubDetail
-#     return generate_call_back(method=method)
-#
-#
 
 
 

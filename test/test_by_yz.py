@@ -5,9 +5,10 @@ from datetime import datetime
 import time
 
 
-from tool.util import Util
-from tool.error_config import ErrorInfo
+from ..tool.util import Util
+from ..tool.error_config import ErrorInfo
 LOCALHOST = '192.168.40.156:5098'
+# LOCALHOST = '106.15.185.96:5098'
 ADMIN_TOKNE_ID = '2017-08-290843211652ec5f85f20c297769be144a46ec49'
 
 class ResultManager(Util):
@@ -192,6 +193,7 @@ def get_activity_list():
 
 
 if __name__ == '__main__':
+    get_activity_list()
     # t1 = datetime.now()
     # print(t1)
     # time.sleep(0.01)
@@ -221,7 +223,7 @@ if __name__ == '__main__':
     # assign_role()
     # create_judge()
     # create_roletype_background()
-    create_participate()
+    # create_participate()
     # create_admin_info_background()
     # admin_login_background()
     # create_club_background()
